@@ -1,0 +1,36 @@
+
+service: wazuh-bot-slack
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.12
+  region: uk-west-1
+  # Use a custom name for the CloudFormation stack. Optional.
+  stackName: wazuh-bot-stack
+  iam:
+    role:
+      # Add statements to the IAM role to give permissions to Lambda functions
+      statements:
+        - Effect: Allow
+          Action:
+            - 's3:ListBucket'
+          Resource:
+            Fn::Join:
+              - ''
+              - - 'arn:aws:s3:::'
+                - Ref: ServerlessDeploymentBucket
+      # Optional custom name for default IAM role
+      name: wazuh-bot-role
+      # Optional IAM Managed Policies to include into the IAM Role
+      managedPolicies:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - arn:aws:iam::aws:policy/AWSLambdaExecute
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaRole
+
+
+
+
+
+
