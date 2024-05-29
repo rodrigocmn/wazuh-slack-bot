@@ -6,7 +6,7 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: python3.12
-  region: uk-west-1
+  region: eu-west-1
   # Use a custom name for the CloudFormation stack. Optional.
   stackName: wazuh-bot-stack
   iam:
@@ -28,6 +28,15 @@ provider:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
         - arn:aws:iam::aws:policy/AWSLambdaExecute
         - arn:aws:iam::aws:policy/service-role/AWSLambdaRole
+
+handler:
+  handler: wazuh_bot.handler
+  description: function description
+  runtime: nodejs10.x
+  memorySize: 128
+  timeout: 3
+  events:
+    
 
 
 
